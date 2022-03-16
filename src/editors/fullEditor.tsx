@@ -1,11 +1,9 @@
 import 'tippy.js/dist/tippy.css'
-// import './index.css'
 
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
+import { Image, Link } from '@styled-icons/material'
 import { liveScope } from '../live'
 import { wrapEditor } from '../wrapEditor'
-
-import { Image, Link, Search } from '@styled-icons/material'
 
 import {
   // BallonToolbarMarks,
