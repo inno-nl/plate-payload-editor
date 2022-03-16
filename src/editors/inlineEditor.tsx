@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import { UsePopperPositionOptions } from '@udecode/plate-ui-popper';
 import { liveScope } from '../live'
 import { wrapEditor } from '../wrapEditor'
 
 const {
   BallonToolbarMarks,
-  useStoreEditorRef,
+  usePlateEditorRef,
   useEventEditorId,
   BalloonToolbar,
   ToolbarMark,
@@ -26,12 +27,15 @@ const {
 } = liveScope
 
 const BallonToolbarMarksCustom = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   const arrow = false
   const theme = 'dark'
   const direction = 'top'
   const hiddenDelay = 0
+  const popperOptions: Partial<UsePopperPositionOptions> = {
+    placement: 'top'
+  }
   const tooltip = {
     arrow: true,
     delay: 0,
@@ -42,7 +46,7 @@ const BallonToolbarMarksCustom = () => {
   }
 
   return (
-    <BalloonToolbar direction={direction} hiddenDelay={hiddenDelay} theme={theme} arrow={arrow}>
+    <BalloonToolbar popperOptions={popperOptions} theme={theme} arrow={arrow}>
       <ToolbarMark
         type={getSlatePluginType(editor, MARK_BOLD)}
         icon={<FormatBold />}

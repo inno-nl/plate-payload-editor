@@ -21,6 +21,26 @@
     "tc39"
   ],
   "dependencies": {
+    "@udecode/plate": "^10.4.1",
+    "@udecode/plate-basic-marks": "^10.4.1",
+    "@udecode/plate-block-quote": "^10.4.1",
+    "@udecode/plate-code-block": "^10.4.1",
+    "@udecode/plate-common": "^7.0.2",
+    "@udecode/plate-core": "^10.4.1",
+    "@udecode/plate-heading": "^10.4.1",
+    "@udecode/plate-highlight": "^10.4.1",
+    "@udecode/plate-image": "^10.4.1",
+    "@udecode/plate-kbd": "^10.4.1",
+    "@udecode/plate-link": "^10.4.1",
+    "@udecode/plate-list": "^10.4.1",
+    "@udecode/plate-media-embed": "^10.4.1",
+    "@udecode/plate-mention": "^10.4.1",
+    "@udecode/plate-paragraph": "^10.4.1",
+    "@udecode/plate-table": "^10.4.1",
+    "@udecode/plate-ui-code-block": "^10.4.1",
+    "@udecode/plate-ui-mention": "^10.4.1",
+    "@udecode/plate-ui-toolbar": "^10.4.1",
+    "add": "^2.0.6",
     "react": "^17.0.2",
     "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",
@@ -30,6 +50,7 @@
     "slate-hyperscript": "^0.67.0",
     "slate-react": "^0.75.0",
     "styled-components": "^5.3.3",
-    "styled-icons": "^10.45.0"
+    "styled-icons": "^10.45.0",
+    "yarn": "^1.22.17"
   }
 }

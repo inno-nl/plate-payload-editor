@@ -9,9 +9,6 @@ import {
   deleteColumn,
   deleteRow,
   deleteTable,
-  ELEMENT_ALIGN_CENTER,
-  ELEMENT_ALIGN_JUSTIFY,
-  ELEMENT_ALIGN_RIGHT,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
   ELEMENT_H1,
@@ -31,19 +28,18 @@ import {
   MARK_SUBSCRIPT,
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
-  ToolbarAlign,
-  ToolbarCodeBlock,
-  ToolbarElement,
-  ToolbarList,
-  ToolbarMark,
-  ToolbarTable,
-  ToolbarLink,
-  ToolbarImage,
-  useStoreEditorRef,
-  useEventEditorId,
-  getSlatePluginType,
+  AlignToolbarButton,
+  BlockToolbarButton,
+  ListToolbarButton,
+  MarkToolbarButton,
+  TableToolbarButton,
+  LinkToolbarButton,
+  ImageToolbarButton,
+  usePlateEditorRef,
+  getPluginType,
   MARK_HIGHLIGHT,
-} from '@udecode/slate-plugins'
+} from '@udecode/plate'
+import { UsePopperPositionOptions } from '@udecode/plate-ui-popper';
 import { CodeAlt } from '@styled-icons/boxicons-regular/CodeAlt'
 import { CodeBlock } from '@styled-icons/boxicons-regular/CodeBlock'
 import { Subscript } from '@styled-icons/foundation/Subscript'
@@ -77,40 +73,40 @@ import { Image } from '@styled-icons/material/Image'
 import { Link } from '@styled-icons/material/Link'
 
 export const ToolbarButtonsBasicElements = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
     <>
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H1)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H1)}
         icon={<LooksOne />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H2)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H2)}
         icon={<LooksTwo />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H3)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H3)}
         icon={<Looks3 />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H4)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H4)}
         icon={<Looks4 />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H5)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H5)}
         icon={<Looks5 />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_H6)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_H6)}
         icon={<Looks6 />}
       />
-      <ToolbarElement
-        type={getSlatePluginType(editor, ELEMENT_BLOCKQUOTE)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_BLOCKQUOTE)}
         icon={<FormatQuote />}
       />
-      <ToolbarCodeBlock
-        type={getSlatePluginType(editor, ELEMENT_CODE_BLOCK)}
+      <BlockToolbarButton
+        type={getPluginType(editor, ELEMENT_CODE_BLOCK)}
         icon={<CodeBlock />}
       />
     </>
@@ -118,16 +114,16 @@ export const ToolbarButtonsBasicElements = () => {
 }
 
 export const ToolbarButtonsList = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
     <>
-      <ToolbarList
-        type={getSlatePluginType(editor, ELEMENT_UL)}
+      <ListToolbarButton
+        type={getPluginType(editor, ELEMENT_UL)}
         icon={<FormatListBulleted />}
       />
-      <ToolbarList
-        type={getSlatePluginType(editor, ELEMENT_OL)}
+      <ListToolbarButton
+        type={getPluginType(editor, ELEMENT_OL)}
         icon={<FormatListNumbered />}
       />
     </>
@@ -135,21 +131,21 @@ export const ToolbarButtonsList = () => {
 }
 
 export const ToolbarButtonsAlign = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
     <>
-      <ToolbarAlign icon={<FormatAlignLeft />} />
-      <ToolbarAlign
-        type={getSlatePluginType(editor, ELEMENT_ALIGN_CENTER)}
+      <AlignToolbarButton value="left" icon={<FormatAlignLeft />} />
+      <AlignToolbarButton
+        value="center"
         icon={<FormatAlignCenter />}
       />
-      <ToolbarAlign
-        type={getSlatePluginType(editor, ELEMENT_ALIGN_RIGHT)}
+      <AlignToolbarButton
+        value="right"
         icon={<FormatAlignRight />}
       />
-      <ToolbarAlign
-        type={getSlatePluginType(editor, ELEMENT_ALIGN_JUSTIFY)}
+      <AlignToolbarButton
+        value="justify"
         icon={<FormatAlignJustify />}
       />
     </>
@@ -157,38 +153,38 @@ export const ToolbarButtonsAlign = () => {
 }
 
 export const ToolbarButtonsBasicMarks = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
     <>
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_BOLD)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_BOLD)}
         icon={<FormatBold />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_ITALIC)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_ITALIC)}
         icon={<FormatItalic />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_UNDERLINE)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_UNDERLINE)}
         icon={<FormatUnderlined />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_STRIKETHROUGH)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_STRIKETHROUGH)}
         icon={<FormatStrikethrough />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_CODE)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_CODE)}
         icon={<CodeAlt />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_SUPERSCRIPT)}
-        clear={getSlatePluginType(editor, MARK_SUBSCRIPT)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_SUPERSCRIPT)}
+        clear={getPluginType(editor, MARK_SUBSCRIPT)}
         icon={<Superscript />}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_SUBSCRIPT)}
-        clear={getSlatePluginType(editor, MARK_SUPERSCRIPT)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_SUBSCRIPT)}
+        clear={getPluginType(editor, MARK_SUPERSCRIPT)}
         icon={<Subscript />}
       />
     </>
@@ -196,22 +192,22 @@ export const ToolbarButtonsBasicMarks = () => {
 }
 
 export const ToolbarKbd = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
-    <ToolbarMark
-      type={getSlatePluginType(editor, MARK_KBD)}
+    <MarkToolbarButton
+      type={getPluginType(editor, MARK_KBD)}
       icon={<Keyboard />}
     />
   )
 }
 
 export const ToolbarHighlight = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+  const editor = usePlateEditorRef()
 
   return (
-    <ToolbarMark
-      type={getSlatePluginType(editor, MARK_HIGHLIGHT)}
+    <MarkToolbarButton
+      type={getPluginType(editor, MARK_HIGHLIGHT)}
       icon={<Highlight />}
     />
   )
@@ -219,22 +215,23 @@ export const ToolbarHighlight = () => {
 
 export const ToolbarButtonsTable = () => (
   <>
-    <ToolbarTable icon={<BorderAll />} transform={insertTable} />
-    <ToolbarTable icon={<BorderClear />} transform={deleteTable} />
-    <ToolbarTable icon={<BorderBottom />} transform={addRow} />
-    <ToolbarTable icon={<BorderTop />} transform={deleteRow} />
-    <ToolbarTable icon={<BorderLeft />} transform={addColumn} />
-    <ToolbarTable icon={<BorderRight />} transform={deleteColumn} />
+    <TableToolbarButton icon={<BorderAll />} transform={insertTable} />
+    <TableToolbarButton icon={<BorderClear />} transform={deleteTable} />
+    <TableToolbarButton icon={<BorderBottom />} transform={addRow} />
+    <TableToolbarButton icon={<BorderTop />} transform={deleteRow} />
+    <TableToolbarButton icon={<BorderLeft />} transform={addColumn} />
+    <TableToolbarButton icon={<BorderRight />} transform={deleteColumn} />
   </>
 )
 
-export const BallonToolbarMarks = () => {
-  const editor = useStoreEditorRef(useEventEditorId('focus'))
+export const BallonMarkToolbarButtons = () => {
+  const editor = usePlateEditorRef()
 
   const arrow = false
   const theme = 'dark'
-  const direction = 'top'
-  const hiddenDelay = 0
+  const popperOptions: Partial<UsePopperPositionOptions> = {
+    placement: 'top'
+  }
   const tooltip: TippyProps = {
     arrow: true,
     delay: 0,
@@ -246,28 +243,27 @@ export const BallonToolbarMarks = () => {
 
   return (
     <BalloonToolbar
-      direction={direction}
-      hiddenDelay={hiddenDelay}
+      popperOptions={popperOptions}
       theme={theme}
       arrow={arrow}
     >
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_BOLD)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_BOLD)}
         icon={<FormatBold />}
         tooltip={{ content: 'Bold (⌘B)', ...tooltip }}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_ITALIC)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_ITALIC)}
         icon={<FormatItalic />}
         tooltip={{ content: 'Italic (⌘I)', ...tooltip }}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_UNDERLINE)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_UNDERLINE)}
         icon={<FormatUnderlined />}
         tooltip={{ content: 'Underline (⌘U)', ...tooltip }}
       />
-      <ToolbarMark
-        type={getSlatePluginType(editor, MARK_HIGHLIGHT)}
+      <MarkToolbarButton
+        type={getPluginType(editor, MARK_HIGHLIGHT)}
         icon={<Highlight />}
         tooltip={{ content: 'Highlight (⌘K)', ...tooltip }}
       />
@@ -281,8 +277,8 @@ export const ToolbarButtons = () => (
     <ToolbarButtonsList />
     <ToolbarButtonsBasicMarks />
     <ToolbarButtonsAlign />
-    <ToolbarLink icon={<Link />} />
-    <ToolbarImage icon={<Image />} />
+    <LinkToolbarButton icon={<Link />} />
+    <ImageToolbarButton icon={<Image />} />
     <ToolbarButtonsTable />
   </>
 )
