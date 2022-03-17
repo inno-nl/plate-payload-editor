@@ -18,118 +18,127 @@ import {
   MARK_STRIKETHROUGH,
   toggleList,
   unwrapList,
-  WithAutoformatOptions,
-  createSlatePluginsOptions,
-  SPEditor,
-  AutoformatRule,
-} from '@udecode/slate-plugins'
+  AutoformatPlugin,
+  PlateEditor,
+  AutoformatBlockRule,
+} from '@udecode/plate'
 
-const options = createSlatePluginsOptions()
 
-const preFormat: AutoformatRule['preFormat'] = (editor) =>
-  unwrapList(editor as SPEditor)
+const preFormat: AutoformatBlockRule['preFormat'] = (editor) =>
+  unwrapList(editor as PlateEditor)
 
-export const optionsAutoformat: WithAutoformatOptions = {
+export const optionsAutoformat: AutoformatPlugin = {
   rules: [
     {
-      type: options[ELEMENT_H1].type,
-      markup: '#',
+      mode: 'block',
+      type: ELEMENT_H1,
+      match: '#',
       preFormat,
     },
     {
-      type: options[ELEMENT_H2].type,
-      markup: '##',
+      mode: 'block',
+      type: ELEMENT_H2,
+      match: '##',
       preFormat,
     },
     {
-      type: options[ELEMENT_H3].type,
-      markup: '###',
+      mode: 'block',
+      type: ELEMENT_H3,
+      match: '###',
       preFormat,
     },
     {
-      type: options[ELEMENT_H4].type,
-      markup: '####',
+      mode: 'block',
+      type: ELEMENT_H4,
+      match: '####',
       preFormat,
     },
     {
-      type: options[ELEMENT_H5].type,
-      markup: '#####',
+      mode: 'block',
+      type: ELEMENT_H5,
+      match: '#####',
       preFormat,
     },
     {
-      type: options[ELEMENT_H6].type,
-      markup: '######',
+      mode: 'block',
+      type: ELEMENT_H6,
+      match: '######',
       preFormat,
     },
     {
-      type: options[ELEMENT_LI].type,
-      markup: ['*', '-'],
+      mode: 'block',
+      type: ELEMENT_LI,
+      match: ['*', '-'],
       preFormat,
       format: (editor) => {
-        toggleList(editor as SPEditor, { type: options[ELEMENT_UL].type })
+        toggleList(editor as PlateEditor, { type: ELEMENT_UL })
       },
     },
     {
-      type: options[ELEMENT_LI].type,
-      markup: ['1.', '1)'],
+      mode: 'block',
+      type: ELEMENT_LI,
+      match: ['1.', '1)'],
       preFormat,
       format: (editor) => {
-        toggleList(editor as SPEditor, { type: options[ELEMENT_OL].type })
+        toggleList(editor as PlateEditor, { type: ELEMENT_OL })
       },
     },
     {
-      type: options[ELEMENT_TODO_LI].type,
-      markup: ['[]'],
+      mode: 'block',
+      type: ELEMENT_TODO_LI,
+      match: ['[]'],
     },
     {
-      type: options[ELEMENT_BLOCKQUOTE].type,
-      markup: ['>'],
+      mode: 'block',
+      type: ELEMENT_BLOCKQUOTE,
+      match: ['>'],
       preFormat,
     },
     {
-      type: options[MARK_BOLD].type,
-      between: ['**', '**'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_BOLD,
+      match: ['**', '**'],
       insertTrigger: true,
     },
     {
-      type: options[MARK_BOLD].type,
-      between: ['__', '__'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_BOLD,
+      match: ['__', '__'],
       insertTrigger: true,
     },
     {
-      type: options[MARK_ITALIC].type,
-      between: ['*', '*'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_ITALIC,
+      match: ['*', '*'],
       insertTrigger: true,
     },
     {
-      type: options[MARK_ITALIC].type,
-      between: ['_', '_'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_ITALIC,
+      match: ['_', '_'],
       insertTrigger: true,
     },
     {
-      type: options[MARK_CODE].type,
-      between: ['`', '`'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_CODE,
+      match: ['`', '`'],
       insertTrigger: true,
     },
     {
-      type: options[MARK_STRIKETHROUGH].type,
-      between: ['~~', '~~'],
-      mode: 'inline',
+      mode: 'block',
+      type: MARK_STRIKETHROUGH,
+      match: ['~~', '~~'],
       insertTrigger: true,
     },
     {
-      type: options[ELEMENT_CODE_BLOCK].type,
-      markup: '``',
+      mode: 'block',
+      type: ELEMENT_CODE_BLOCK,
+      match: '``',
       trigger: '`',
       triggerAtBlockStart: false,
       preFormat,
       format: (editor) => {
-        insertCodeBlock(editor as SPEditor, { select: true })
+        insertCodeBlock(editor as PlateEditor, { select: true })
       },
     },
   ],

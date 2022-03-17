@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from '@udecode/slate-plugins-test-utils'
+import { jsx } from '@udecode/plate-test-utils'
 import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
@@ -31,7 +31,7 @@ import {
   MARK_SUBSCRIPT,
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
-} from '@udecode/slate-plugins'
+} from '@udecode/plate'
 import { createList, createElement, getNodesWithRandomId } from './utils'
 
 export const initialValueEmpty: any = (

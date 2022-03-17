@@ -858,6 +858,11 @@
   dependencies:
     "@udecode/plate-core" "10.4.1"
 
+"@udecode/plate-test-utils@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-test-utils/-/plate-test-utils-10.1.0.tgz#5d21a58b4d7eb7a5ad0505598ab1fff355212c82"
+  integrity sha512-xAssnvq8kQiqZqzjD+suWU/ZWQ+Y57rO92bHvg43xpmJxwhF8iFCP2iLH1AHVJFWbICc58XV/UjlDtILHOTAvQ==
+
 "@udecode/plate-trailing-block@10.4.1":
   version "10.4.1"
   resolved "https://registry.yarnpkg.com/@udecode/plate-trailing-block/-/plate-trailing-block-10.4.1.tgz#cd66975b12daabbbe652b1984e05fb822889401e"

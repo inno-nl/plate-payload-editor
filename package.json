@@ -38,6 +38,7 @@
     "@udecode/plate-mention": "^10.4.1",
     "@udecode/plate-paragraph": "^10.4.1",
     "@udecode/plate-table": "^10.4.1",
+    "@udecode/plate-test-utils": "^10.1.0",
     "@udecode/plate-ui-code-block": "^10.4.1",
     "@udecode/plate-ui-mention": "^10.4.1",
     "@udecode/plate-ui-toolbar": "^10.4.1",

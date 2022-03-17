@@ -3,11 +3,11 @@ import {
   ELEMENT_LIC,
   ELEMENT_PARAGRAPH,
   ELEMENT_UL,
-} from '@udecode/slate-plugins'
-import { Text } from 'slate'
+} from "@udecode/plate"
+import { Text } from "slate"
 
 export const createElement = (
-  text = '',
+  text = "",
   {
     type = ELEMENT_PARAGRAPH,
     mark,
@@ -29,7 +29,7 @@ export const createElement = (
 
 export const createList = (
   items: string[],
-  { splitSeparator = '`' }: { splitSeparator?: string } = {}
+  { splitSeparator = "`" }: { splitSeparator?: string } = {}
 ) => {
   const children = items.map((item) => {
     const texts = item.split(splitSeparator)

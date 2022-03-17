@@ -5,77 +5,69 @@ import {
   ELEMENT_TD,
   ELEMENT_TODO_LI,
   ELEMENT_IMAGE,
-  ExitBreakPluginOptions,
-  createSlatePluginsOptions,
+  ExitBreakPlugin,
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
   KEYS_HEADING,
-  MentionNodeData,
-  ResetBlockTypePluginOptions,
-  SoftBreakPluginOptions,
-} from '@udecode/slate-plugins'
-import { MENTIONABLES } from './mentionables'
-
-export const options = createSlatePluginsOptions()
+  TComboboxItem,
+  ResetNodePlugin,
+  SoftBreakPlugin,
+} from "@udecode/plate"
+import { MENTIONABLES } from "./mentionables"
 
 export const optionsMentionPlugin = {
   mentionables: MENTIONABLES,
   maxSuggestions: 10,
   insertSpaceAfterMention: false,
-  trigger: '@',
-  mentionableFilter: (s: string) => (mentionable: MentionNodeData) =>
-    mentionable.email.toLowerCase().includes(s.toLowerCase()) ||
-    mentionable.name.toLowerCase().includes(s.toLowerCase()),
-  mentionableSearchPattern: '\\S*',
+  trigger: "@",
+  mentionableFilter: (s: string) => (mentionable: TComboboxItem) =>
+    mentionable.text.toLowerCase().includes(s.toLowerCase()),
+  mentionableSearchPattern: "\\S*",
 }
 
 const resetBlockTypesCommonRule = {
-  types: [options[ELEMENT_BLOCKQUOTE].type, options[ELEMENT_TODO_LI].type],
-  defaultType: options[ELEMENT_PARAGRAPH].type,
+  types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
+  defaultType: ELEMENT_PARAGRAPH,
 }
 
-export const optionsResetBlockTypePlugin: ResetBlockTypePluginOptions = {
+export const optionsResetBlockTypePlugin: ResetNodePlugin = {
   rules: [
     {
       ...resetBlockTypesCommonRule,
-      hotkey: 'Enter',
+      hotkey: "Enter",
       predicate: isBlockAboveEmpty,
     },
     {
       ...resetBlockTypesCommonRule,
-      hotkey: 'Backspace',
+      hotkey: "Backspace",
       predicate: isSelectionAtBlockStart,
     },
   ],
 }
 
-export const optionsSoftBreakPlugin: SoftBreakPluginOptions = {
+export const optionsSoftBreakPlugin: SoftBreakPlugin = {
   rules: [
-    { hotkey: 'shift+enter' },
+    { hotkey: "shift+enter" },
     {
-      hotkey: 'enter',
+      hotkey: "enter",
       query: {
-        allow: [
-          options[ELEMENT_CODE_BLOCK].type,
-          options[ELEMENT_BLOCKQUOTE].type,
-          options[ELEMENT_TD].type,
-        ],
+        allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
       },
     },
   ],
 }
 
-export const optionsExitBreakPlugin: ExitBreakPluginOptions = {
+export const optionsExitBreakPlugin: ExitBreakPlugin = {
   rules: [
     {
-      hotkey: 'mod+enter',
+      hotkey: "mod+enter",
     },
     {
-      hotkey: 'mod+shift+enter',
+      hotkey: "mod+shift+enter",
       before: true,
     },
     {
-      hotkey: 'enter',
+      hotkey: "enter",
       query: {
         start: true,
         end: true,
@@ -83,24 +75,24 @@ export const optionsExitBreakPlugin: ExitBreakPluginOptions = {
       },
     },
     {
-      hotkey: 'enter',
+      hotkey: "enter",
       query: {
-        allow: [options[ELEMENT_IMAGE].type],
+        allow: [ELEMENT_IMAGE],
       },
     },
     {
-      hotkey: 'enter',
+      hotkey: "enter",
       before: true,
       query: {
         start: true,
-        allow: [options[ELEMENT_PARAGRAPH].type],
+        allow: [ELEMENT_PARAGRAPH],
       },
     },
   ],
 }
 
 export const editableProps = {
-  placeholder: 'Enter some rich text…',
+  placeholder: "Enter some rich text…",
   spellCheck: false,
-  padding: '0 30px',
+  padding: "0 30px",
 }

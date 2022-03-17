@@ -1,32 +1,30 @@
-import 'tippy.js/dist/tippy.css'
+import "tippy.js/dist/tippy.css"
 
-import React, { useMemo } from 'react'
-import { Image, Link } from '@styled-icons/material'
-import { liveScope } from '../live'
-import { wrapEditor } from '../wrapEditor'
+import React, { useMemo } from "react"
+import { Image, Link } from "@styled-icons/material"
+import { liveScope } from "../live"
+import { wrapEditor } from "../wrapEditor"
 
 import {
-  // BallonToolbarMarks,
-  // ToolbarButtons,
+  BallonMarkToolbarButtons,
   ToolbarButtonsBasicElements,
   ToolbarButtonsList,
   ToolbarButtonsBasicMarks,
   ToolbarButtonsAlign,
   ToolbarButtonsTable,
-} from '../config/Toolbars'
+} from "../config/Toolbars"
 
 // ——
 
 import {
   ELEMENT_IMAGE,
   ELEMENT_PARAGRAPH,
-  createSlatePluginsComponents,
-  createSlatePluginsOptions,
+  createPlateUI,
   HeadingToolbar,
-  MentionSelect,
-  SlatePlugin,
-  SlatePlugins,
-  ToolbarSearchHighlight,
+  MentionCombobox,
+  Plate,
+  PlatePlugin,
+  createPlugins,
   createAlignPlugin,
   createAutoformatPlugin,
   createBlockquotePlugin,
@@ -56,37 +54,31 @@ import {
   createTodoListPlugin,
   createTrailingBlockPlugin,
   createUnderlinePlugin,
-  createDeserializeHTMLPlugin,
-  useFindReplacePlugin,
-  useMentionPlugin,
+  createDeserializeHtmlPlugin,
+  createMentionPlugin,
   withProps,
   MentionElement,
   ELEMENT_MENTION,
-  SPEditor,
-} from '@udecode/slate-plugins'
-import { optionsAutoformat } from '../config/autoformatRules'
-import { initialValuePlayground } from '../config/initialValues'
+  PlateEditor,
+} from "@udecode/plate"
+import { optionsAutoformat } from "../config/autoformatRules"
 import {
   editableProps,
   optionsExitBreakPlugin,
-  optionsMentionPlugin,
   optionsResetBlockTypePlugin,
   optionsSoftBreakPlugin,
-} from '../config/pluginOptions'
-import { renderMentionLabel } from '../config/renderMentionLabel'
-import { BallonToolbarMarks, ToolbarButtons } from '../config/Toolbars'
-import { withStyledPlaceHolders } from '../config/withStyledPlaceHolders'
-import { withStyledDraggables } from '../config/withStyledDraggables'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { HistoryEditor } from 'slate-history'
-import { ReactEditor } from 'slate-react'
+} from "../config/pluginOptions"
+import { renderMentionLabel } from "../config/renderMentionLabel"
+import { withStyledPlaceHolders } from "../config/withStyledPlaceHolders"
+import { HistoryEditor } from "slate-history"
+import { ReactEditor } from "slate-react"
+import { MENTIONABLES } from "../config/mentionables"
 
-type TEditor = SPEditor & ReactEditor & HistoryEditor
+type TEditor = PlateEditor & ReactEditor & HistoryEditor
 
-const id = 'Examples/Playground'
+const id = "Examples/Playground"
 
-let components = createSlatePluginsComponents({
+let components = createPlateUI({
   [ELEMENT_MENTION]: withProps(MentionElement, {
     renderLabel: renderMentionLabel,
   }),
@@ -95,24 +87,10 @@ let components = createSlatePluginsComponents({
 components = withStyledPlaceHolders(components)
 // components = withStyledDraggables(components)
 
-const options = createSlatePluginsOptions({
-  // customize your options by plugin key
-})
-
-const {
-  ToolbarKbd,
-  ToolbarHighlight,
-  ToolbarLink,
-  ToolbarImage,
-} = liveScope
+const { ToolbarKbd, ToolbarHighlight, ToolbarLink, ToolbarImage } = liveScope
 
 export const FullEditor = wrapEditor((props) => {
-  // const { setSearch, plugin: searchHighlightPlugin } = useFindReplacePlugin()
-  const { getMentionSelectProps, plugin: mentionPlugin } = useMentionPlugin(
-    optionsMentionPlugin
-  )
-
-  const plugins: SlatePlugin<TEditor>[] = useMemo(() => {
+  const plugins: PlatePlugin<TEditor>[] = useMemo(() => {
     const p = [
       createReactPlugin(),
       createHistoryPlugin(),
@@ -137,58 +115,50 @@ export const FullEditor = wrapEditor((props) => {
       createSuperscriptPlugin(),
       createKbdPlugin(),
       createNodeIdPlugin(),
-      createAutoformatPlugin(optionsAutoformat),
-      createResetNodePlugin(optionsResetBlockTypePlugin),
-      createSoftBreakPlugin(optionsSoftBreakPlugin),
-      createExitBreakPlugin(optionsExitBreakPlugin),
+      createAutoformatPlugin({ options: optionsAutoformat }),
+      createResetNodePlugin({ options: optionsResetBlockTypePlugin }),
+      createSoftBreakPlugin({ options: optionsSoftBreakPlugin }),
+      createExitBreakPlugin({ options: optionsExitBreakPlugin }),
       createTrailingBlockPlugin({
-        type: options[ELEMENT_PARAGRAPH].type,
+        type: ELEMENT_PARAGRAPH,
       }),
-      createSelectOnBackspacePlugin({ allow: options[ELEMENT_IMAGE].type }),
-      mentionPlugin,
-      // searchHighlightPlugin,
+      createSelectOnBackspacePlugin({
+        options: { query: { allow: ELEMENT_IMAGE } },
+      }),
+      createMentionPlugin(),
     ]
 
-    p.push(createDeserializeHTMLPlugin({ plugins: p }))
-
-    return p
-  }, [mentionPlugin /*, searchHighlightPlugin*/])
+    p.push(createDeserializeHtmlPlugin({ plugins: p }))
+    return createPlugins(p, { components })
+  }, [createMentionPlugin])
 
   return (
-    // <DndProvider backend={HTML5Backend}>
-      <SlatePlugins
-        id={ props.id}
-        plugins={plugins}
-        components={components}
-        onChange={props.onChange}
-        options={options}
-        value={props.value}
-        editableProps={{
-          ...editableProps,
-          ...(props.editableProps),
-        }}
-      >
-        { /*<ToolbarSearchHighlight icon={Search} setSearch={setSearch} />*/ }
-        <HeadingToolbar>
-          <ToolbarButtonsBasicElements />
-          <ToolbarButtonsList />
-          <ToolbarButtonsBasicMarks />
-          <ToolbarKbd />
-          <ToolbarHighlight />
-          <ToolbarButtonsAlign />
-          <ToolbarLink icon={<Link />} />
-          <ToolbarImage icon={<Image />} />
-          <ToolbarButtonsTable />
-        </HeadingToolbar>
+    <Plate
+      id={props.id}
+      plugins={plugins}
+      onChange={props.onChange}
+      value={props.value}
+      editableProps={{
+        ...editableProps,
+        ...props.editableProps,
+      }}
+    >
+      <HeadingToolbar>
+        <ToolbarButtonsBasicElements />
+        <ToolbarButtonsList />
+        <ToolbarButtonsBasicMarks />
+        <ToolbarKbd />
+        <ToolbarHighlight />
+        <ToolbarButtonsAlign />
+        <ToolbarLink icon={<Link />} />
+        <ToolbarImage icon={<Image />} />
+        <ToolbarButtonsTable />
+      </HeadingToolbar>
 
-        <BallonToolbarMarks />
+      <BallonMarkToolbarButtons />
 
-        <MentionSelect
-          {...getMentionSelectProps()}
-          renderLabel={renderMentionLabel}
-        />
-      </SlatePlugins>
-    // </DndProvider>
+      <MentionCombobox items={MENTIONABLES} />
+    </Plate>
   )
 })
 

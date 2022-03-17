@@ -87,12 +87,6 @@ const BallonToolbarMarksCustom = () => {
 export const InlineEditor = wrapEditor((props) => {
   const componentsPlaceholder = withStyledPlaceHolders(components)
 
-  /*
-  console.log('BALLOON')
-  console.log('inlineEditor props:', props)
-  console.log('—— POP', '\n')
-  */
-
   const style = {
     boxShadow: '0 2px 3px 0 rgb(0 2 4 / 10%), 0 6px 4px -4px rgb(0 2 4 / 2%)',
     fontFamily: 'system-ui',
@@ -118,12 +112,7 @@ export const InlineEditor = wrapEditor((props) => {
           components={components}
           options={options}
           onChange={props.onChange}
-          /* editableProps={{
-           *   ...editableProps,
-           *   ...props.editableProps,
-           * }} */
           value={props.value}
-          // initialValue={initialValueBalloonToolbar}
         />
       </div>
     </>

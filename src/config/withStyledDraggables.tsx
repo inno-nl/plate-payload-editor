@@ -19,7 +19,7 @@ import {
   ELEMENT_UL,
   grabberTooltipProps,
   withDraggables,
-} from '@udecode/slate-plugins';
+} from '@udecode/plate';
 
 export const withStyledDraggables = (components: any) => {
   return withDraggables(components, [

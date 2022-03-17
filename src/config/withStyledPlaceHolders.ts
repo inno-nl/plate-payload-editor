@@ -1,19 +1,15 @@
-import {
-  ELEMENT_H1,
-  ELEMENT_PARAGRAPH,
-  withPlaceholders,
-} from '@udecode/slate-plugins'
+import { ELEMENT_H1, ELEMENT_PARAGRAPH, withPlaceholders } from "@udecode/plate"
 
 export const withStyledPlaceHolders = (components: any) =>
   withPlaceholders(components, [
     {
       key: ELEMENT_PARAGRAPH,
-      placeholder: 'Type a paragraph',
+      placeholder: "Type a paragraph",
       hideOnBlur: true,
     },
     {
       key: ELEMENT_H1,
-      placeholder: 'Untitled',
+      placeholder: "Untitled",
       hideOnBlur: false,
     },
   ])
