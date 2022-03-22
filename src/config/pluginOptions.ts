@@ -15,16 +15,6 @@ import {
 } from "@udecode/plate"
 import { MENTIONABLES } from "./mentionables"
 
-export const optionsMentionPlugin = {
-  mentionables: MENTIONABLES,
-  maxSuggestions: 10,
-  insertSpaceAfterMention: false,
-  trigger: "@",
-  mentionableFilter: (s: string) => (mentionable: TComboboxItem) =>
-    mentionable.text.toLowerCase().includes(s.toLowerCase()),
-  mentionableSearchPattern: "\\S*",
-}
-
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
   defaultType: ELEMENT_PARAGRAPH,
